@@ -20,7 +20,7 @@ export class ChainsRepository implements IChainsRepository {
 
   async getChain(chainId: string): Promise<Chain> {
     const chain = await this.configApi.getChain(chainId);
-    return this.chainValidator.validate(chain);
+    return chain; //this.chainValidator.validate(chain);
   }
 
   async clearChain(chainId: string): Promise<void> {

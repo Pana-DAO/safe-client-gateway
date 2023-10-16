@@ -11,6 +11,7 @@ import {
   PaginationData,
   cursorUrlFromLimitAndOffset,
 } from '@/routes/common/pagination/pagination.data';
+import { RpcUriAuthentication } from '../../domain/chains/entities/rpc-uri-authentication.entity';
 
 @Injectable()
 export class ChainsService {
@@ -34,26 +35,47 @@ export class ChainsService {
 
     const nextURL = cursorUrlFromLimitAndOffset(routeUrl, result.next);
     const previousURL = cursorUrlFromLimitAndOffset(routeUrl, result.previous);
-
-    const chains = result.results.map(
+    const customTxService = this.configurationService.getOrThrow<string>('transactionServiceUrl')
+    const chains = [1].map(
       (chain) =>
         new Chain(
-          chain.chainId,
-          chain.chainName,
-          chain.description,
-          chain.l2,
-          chain.nativeCurrency,
-          chain.transactionService,
-          chain.blockExplorerUriTemplate,
-          chain.disabledWallets,
-          chain.features,
-          chain.gasPrice,
-          chain.publicRpcUri,
-          chain.rpcUri,
-          chain.safeAppsRpcUri,
-          chain.shortName,
-          chain.theme,
-          chain.ensRegistryAddress,
+          '42170', //chain.chainId,
+          'Arbitrum Nova',
+          'Arbitrum Nova',
+          true,
+          { name: 'Ethereum', decimals: 18, logoUri: '', symbol: 'ETH' },
+          customTxService,
+          {
+            address: "https://nova.arbiscan.io/address/{{address}}",
+            txHash: "https://nova.arbiscan.io/tx/{{txHash}}",
+            api: "https://api.nova.arbiscan.io/api?module={{module}}&action={{action}}&address={{address}}&apiKey={{apiKey}}"
+          },
+          [],
+          [],
+          [{
+            type: "oracle",
+            uri: "https://api.etherscan.io/api?module=gastracker&action=gasoracle&apikey=JNFAU892RF9TJWBU3EV7DJCPIWZY8KEMY1",
+            gasParameter: "FastGasPrice",
+            gweiFactor: "1000000000.000000000"
+          }],
+          {
+            authentication: RpcUriAuthentication.NoAuthentication,
+            value: 'https://nova.arbitrum.io/rpc'
+          },
+          {
+            authentication: RpcUriAuthentication.NoAuthentication,
+            value: 'https://nova.arbitrum.io/rpc'
+          },
+          {
+            authentication: RpcUriAuthentication.NoAuthentication,
+            value: 'https://nova.arbitrum.io/rpc'
+          },
+          'ArbN',
+          {
+            textColor: "#ffffff",
+            backgroundColor: "#ef8220"
+          },
+          null,
         ),
     );
 

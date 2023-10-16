@@ -61,4 +61,5 @@ export default () => ({
   safeTransaction: {
     useVpcUrl: process.env.USE_TX_SERVICE_VPC_URL?.toLowerCase() === 'true',
   },
+  transactionServiceUrl: process.env.TX_SERVICE
 });
