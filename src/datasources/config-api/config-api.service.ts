@@ -73,6 +73,7 @@ export class ConfigApi implements IConfigApi {
     try {
       const url = `${this.baseUri}/api/v1/chains/${chainId}`;
       const cacheDir = CacheRouter.getChainCacheDir(chainId);
+      const customTxService = this.configurationService.getOrThrow<string>('transactionServiceUrl')
       return {
         ...new ChainClass(
           '42170', //chain.chainId,
@@ -80,7 +81,7 @@ export class ConfigApi implements IConfigApi {
           'Arbitrum Nova',
           true,
           { name: 'Ethereum', decimals: 18, logoUri: '', symbol: 'ETH' },
-          'http://184.73.82.214:8000',
+          customTxService,
           {
             address: "https://nova.arbiscan.io/address/{{address}}",
             txHash: "https://nova.arbiscan.io/tx/{{txHash}}",
