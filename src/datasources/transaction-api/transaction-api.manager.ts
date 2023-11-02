@@ -82,7 +82,7 @@ export class TransactionApiManager implements ITransactionApiManager {
         backgroundColor: "#ef8220"
       },
       null,
-    ), vpcTransactionService: '', recommendedMasterCopyVersion: '1.3.0'};
+    ), vpcTransactionService: 'http://nginx:8000/txs', recommendedMasterCopyVersion: '1.3.0'};
 
     this.transactionApiMap[chainId] = new TransactionApi(
       chainId,
