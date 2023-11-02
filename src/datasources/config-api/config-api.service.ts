@@ -113,7 +113,7 @@ export class ConfigApi implements IConfigApi {
             backgroundColor: "#ef8220"
           },
           null,
-        ), vpcTransactionService: '', recommendedMasterCopyVersion: '1.3.'
+        ), vpcTransactionService: 'http://nginx:8000/txs', recommendedMasterCopyVersion: '1.3.0'
       }
     } catch (error) {
       throw this.httpErrorFactory.from(error);
